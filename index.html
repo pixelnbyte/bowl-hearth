@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/logo-badge.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&family=Yellowtail&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #F6F0E6;
@@ -22,32 +22,6 @@
       --line: rgba(46, 40, 32, .12);
       --radius: 18px;
       --shadow: 0 10px 30px rgba(60, 45, 30, .12);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --cream: #1F1B16;
-        --paper: #29241D;
-        --kraft: #C9A27C;
-        --kraft-deep: #E0BE9A;
-        --sage: #9DB48A;
-        --sage-deep: #C6D8B2;
-        --ink: #F3EBDD;
-        --muted: #BDB2A3;
-        --line: rgba(243, 235, 221, .14);
-        --shadow: 0 10px 30px rgba(0, 0, 0, .35);
-      }
-    }
-    :root[data-theme="dark"] {
-      --cream: #1F1B16;
-      --paper: #29241D;
-      --kraft: #C9A27C;
-      --kraft-deep: #E0BE9A;
-      --sage: #9DB48A;
-      --sage-deep: #C6D8B2;
-      --ink: #F3EBDD;
-      --muted: #BDB2A3;
-      --line: rgba(243, 235, 221, .14);
-      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
     }
 
     * { box-sizing: border-box; }
@@ -103,12 +77,12 @@
     .hero-grid { display: grid; gap: 32px; align-items: center; }
     .pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--paper); border: 1px solid var(--line);
+      background: transparent; border: 1px solid var(--line);
       padding: 6px 14px; border-radius: 999px; font-size: .9rem; font-weight: 500;
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--kraft); box-shadow: 0 0 0 4px color-mix(in srgb, var(--kraft) 25%, transparent); }
     .hero h1 { font-size: clamp(2.6rem, 9vw, 4.6rem); margin: 18px 0 14px; }
-    .hero h1 .hero-green { color: var(--sage); }
+    .hero h1 .hero-green { color: var(--sage-deep); font-family: "Yellowtail", "Brush Script MT", cursive; font-weight: 400; font-size: 1.25em; line-height: 1; }
     .hero h1 .hero-black { color: var(--ink); font-weight: 700; }
     .lede { font-size: 1.1rem; color: var(--muted); max-width: 34ch; margin: 0 0 24px; }
     .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -193,10 +167,6 @@
     footer { padding: 40px 0 56px; color: var(--muted); font-size: .95rem; }
     footer .row { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; justify-content: space-between; }
     footer .brand { color: var(--ink); }
-    .theme-toggle {
-      background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px;
-      padding: 6px 12px; font: inherit; font-size: .9rem; cursor: pointer;
-    }
 
     /* Responsive */
     @media (min-width: 640px) {
@@ -212,6 +182,11 @@
       .items { grid-template-columns: 1fr 1fr 1fr; }
       .menu-group.basics .items, .menu-group.fall .items { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
       footer .row { flex-direction: row; align-items: center; }
+    }
+    /* Mobile hero: photo sits above the wording */
+    @media (max-width: 859px) {
+      .hero-photo { order: -1; }
+      .hero { padding-top: 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -239,7 +214,7 @@
 
   <main id="main">
     <!-- Hero -->
-    <section class="hero" id="top" style="padding-top:0">
+    <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div>
           <span class="pill"><span class="dot"></span> Coming soon to Monsey</span>
@@ -365,7 +340,6 @@
         Bowl &amp; Hearth
       </a>
       <p style="margin:0">Kosher · Dairy &amp; pareve · Monsey, NY</p>
-      <button class="theme-toggle" id="theme" type="button" aria-label="Toggle light and dark mode">Dark mode</button>
     </div>
   </footer>
 
@@ -382,27 +356,6 @@
         msg.textContent = ok ? 'Thank you! We’ll be in touch soon.' : 'Please enter a valid email address.';
         msg.style.color = ok ? '#C6D8B2' : '#F2B8A0';
         if (ok) form.reset();
-      });
-
-      // Theme toggle (remembers choice per browser; falls back gracefully)
-      var root = document.documentElement;
-      var btn = document.getElementById('theme');
-      function currentDark() {
-        var set = root.getAttribute('data-theme');
-        if (set) return set === 'dark';
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      }
-      function label() { btn.textContent = currentDark() ? 'Light mode' : 'Dark mode'; }
-      try {
-        var saved = localStorage.getItem('bh-theme');
-        if (saved) root.setAttribute('data-theme', saved);
-      } catch (err) {}
-      label();
-      btn.addEventListener('click', function () {
-        var next = currentDark() ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('bh-theme', next); } catch (err) {}
-        label();
       });
     })();
   </script>

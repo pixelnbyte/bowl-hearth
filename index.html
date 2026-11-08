@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bowl &amp; Hearth · Warmth you can hold.</title>
+  <meta name="description" content="Bowl & Hearth: hearty, kosher soups with sourdough bread bowls, breadsticks and croutons. Coming soon to Monsey.">
+  <link rel="icon" href="assets/logo-badge.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F6F0E6;
+      --paper: #FFFBF4;
+      --kraft: #B8906A;
+      --kraft-deep: #8A6443;
+      --sage: #5C6F4B;
+      --sage-deep: #424F35;
+      --ink: #2E2820;
+      --muted: #6E6255;
+      --line: rgba(46, 40, 32, .12);
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(60, 45, 30, .12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --cream: #1F1B16;
+        --paper: #29241D;
+        --kraft: #C9A27C;
+        --kraft-deep: #E0BE9A;
+        --sage: #9DB48A;
+        --sage-deep: #C6D8B2;
+        --ink: #F3EBDD;
+        --muted: #BDB2A3;
+        --line: rgba(243, 235, 221, .14);
+        --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      }
+    }
+    :root[data-theme="dark"] {
+      --cream: #1F1B16;
+      --paper: #29241D;
+      --kraft: #C9A27C;
+      --kraft-deep: #E0BE9A;
+      --sage: #9DB48A;
+      --sage-deep: #C6D8B2;
+      --ink: #F3EBDD;
+      --muted: #BDB2A3;
+      --line: rgba(243, 235, 221, .14);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0; }
+    h2 { font-size: clamp(2rem, 5vw, 2.75rem); }
+    .eyebrow {
+      font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--sage); font-weight: 700; margin: 0 0 .6rem;
+    }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 16px; top: 16px; background: var(--paper); padding: 8px 12px; border-radius: 8px; z-index: 99; }
+
+    /* Header */
+    header.site {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--cream) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.15rem; }
+    .brand img { width: 40px; height: 40px; border-radius: 50%; }
+    nav.links { display: none; gap: 24px; }
+    nav.links a { text-decoration: none; font-weight: 500; color: var(--muted); }
+    nav.links a:hover { color: var(--ink); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 48px; padding: 0 22px; border-radius: 999px;
+      background: var(--sage); color: #fff; font-weight: 700; text-decoration: none;
+      border: 0; font: inherit; cursor: pointer; transition: transform .15s ease, background .2s;
+    }
+    .btn:hover { background: var(--sage-deep); transform: translateY(-1px); }
+    .btn:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--kraft); outline-offset: 3px; }
+    .btn.small { min-height: 40px; padding: 0 16px; font-size: .95rem; }
+    .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+    .btn.ghost:hover { background: var(--ink); color: var(--cream); }
+
+    /* Hero */
+    .hero { padding: 28px 0 56px; }
+    .hero-grid { display: grid; gap: 32px; align-items: center; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--paper); border: 1px solid var(--line);
+      padding: 6px 14px; border-radius: 999px; font-size: .9rem; font-weight: 500;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--kraft); box-shadow: 0 0 0 4px color-mix(in srgb, var(--kraft) 25%, transparent); }
+    .hero h1 { font-size: clamp(2.6rem, 9vw, 4.6rem); margin: 18px 0 14px; }
+    .hero h1 .hero-green { color: var(--sage); }
+    .hero h1 .hero-black { color: var(--ink); font-weight: 700; }
+    .lede { font-size: 1.1rem; color: var(--muted); max-width: 34ch; margin: 0 0 24px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 24px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .95rem; }
+    .facts li::before { content: "✓ "; color: var(--sage); font-weight: 700; }
+    .hero-photo { position: relative; }
+    .hero-photo > img:not(.seal) {
+      width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+      border-radius: 28px; box-shadow: var(--shadow);
+    }
+    .seal {
+      position: absolute; right: -6px; bottom: -14px; width: 112px; height: 112px;
+      border-radius: 50%; box-shadow: var(--shadow); border: 4px solid var(--cream);
+      background: var(--cream);
+    }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    .section-head { max-width: 640px; margin-bottom: 32px; }
+    .section-head p { color: var(--muted); margin: 12px 0 0; }
+
+    /* Menu */
+    .menu-wrap { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .menu-group + .menu-group { margin-top: 44px; }
+    .menu-group h3 {
+      font-size: 1.35rem; display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .menu-group h3 small {
+      font-family: "DM Sans", sans-serif; font-size: .72rem; letter-spacing: .16em;
+      text-transform: uppercase; font-weight: 700; color: var(--kraft-deep);
+      border: 1px solid var(--kraft); border-radius: 999px; padding: 3px 10px;
+    }
+    .items { display: grid; gap: 14px; grid-template-columns: 1fr; }
+    .item {
+      background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .item img, .item .photo-soon {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
+    }
+    .item .photo-soon {
+      background: color-mix(in srgb, var(--kraft) 16%, var(--paper));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--kraft-deep); font-weight: 500; font-size: .95rem; letter-spacing: .02em;
+    }
+    .item-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; }
+    .item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .item h4 { font-family: "Fraunces", Georgia, serif; font-size: 1.2rem; font-weight: 600; margin: 0; }
+    .tag {
+      flex: none; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+    }
+    .tag.pareve { background: color-mix(in srgb, var(--sage) 18%, transparent); color: var(--sage-deep); }
+    .tag.dairy { background: color-mix(in srgb, var(--kraft) 22%, transparent); color: var(--kraft-deep); }
+    .item p { margin: 0; color: var(--muted); font-size: .97rem; }
+    .menu-note { color: var(--muted); font-size: .9rem; margin: 22px 0 0; }
+
+    /* Get well */
+    .gw { display: grid; gap: 28px; align-items: center; }
+    .gw img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow); }
+    .gw p { color: var(--muted); }
+    .gw ul { padding: 0; list-style: none; margin: 18px 0 24px; display: grid; gap: 8px; }
+    .gw li::before { content: "•"; color: var(--kraft); font-weight: 700; margin-right: 10px; }
+
+    /* Notify */
+    .notify {
+      background: var(--sage-deep); color: #F6F0E6; border-radius: 28px; padding: 40px 24px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .notify h2 { color: #F6F0E6; }
+    .notify p { color: #DDE5CF; max-width: 46ch; margin: 12px auto 24px; }
+    .notify form { display: flex; flex-direction: column; gap: 10px; max-width: 460px; margin: 0 auto; }
+    .notify input {
+      min-height: 52px; border-radius: 999px; border: 0; padding: 0 20px; font: inherit; font-size: 1rem;
+      background: #F6F0E6; color: #2E2820;
+    }
+    .notify .btn { background: var(--kraft); color: #2E2820; }
+    .notify .btn:hover { background: #C9A27C; }
+    .notify .msg { min-height: 1.5em; margin-top: 12px; font-weight: 500; }
+    .notify .fine { font-size: .85rem; color: #B9C4A9; margin-top: 16px; }
+
+    footer { padding: 40px 0 56px; color: var(--muted); font-size: .95rem; }
+    footer .row { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; justify-content: space-between; }
+    footer .brand { color: var(--ink); }
+    .theme-toggle {
+      background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px;
+      padding: 6px 12px; font: inherit; font-size: .9rem; cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (min-width: 640px) {
+      .items { grid-template-columns: 1fr 1fr; }
+      .notify form { flex-direction: row; }
+      .notify input { flex: 1; }
+    }
+    @media (min-width: 860px) {
+      nav.links { display: flex; }
+      .hero { padding: 56px 0 88px; }
+      .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 56px; }
+      .gw { grid-template-columns: 1fr 1fr; gap: 56px; }
+      .items { grid-template-columns: 1fr 1fr 1fr; }
+      .menu-group.basics .items, .menu-group.fall .items { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      footer .row { flex-direction: row; align-items: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap bar">
+      <a class="brand" href="#top" aria-label="Bowl and Hearth home">
+        <img src="assets/logo-badge.png" alt="" width="40" height="40">
+        Bowl &amp; Hearth
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#menu">Menu</a>
+        <a href="#get-well">Get Well</a>
+        <a href="#notify">Get notified</a>
+      </nav>
+      <a class="btn small" href="#notify">Get notified</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top" style="padding-top:0">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span> Coming soon to Monsey</span>
+          <h1><span class="hero-green">Warmth</span> <span class="hero-black">you can hold.</span></h1>
+          <p class="lede">Slow-simmered soups, served in a bowl you can take anywhere. Finished with sourdough bread bowls, breadsticks and house croutons.</p>
+          <div class="cta-row">
+            <a class="btn" href="#notify">Get notified when we open</a>
+            <a class="btn ghost" href="#menu">See the menu</a>
+          </div>
+          <ul class="facts">
+            <li>Kosher</li>
+            <li>Dairy &amp; pareve</li>
+          </ul>
+        </div>
+        <div class="hero-photo">
+          <img src="assets/hero-pumpkin.jpg" alt="A steaming bowl of creamy pumpkin soup with sourdough on a wooden table" width="1024" height="1536" fetchpriority="high">
+          <img class="seal" src="assets/logo-badge.png" alt="" width="112" height="112">
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="menu-wrap" id="menu">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">The menu</p>
+          <h2>Soup for every season.</h2>
+          <p>Every bowl comes with croutons, breadsticks or sourdough bread. Pick your favorite and make it a meal.</p>
+        </div>
+
+        <div class="menu-group basics">
+          <h3>Basics <small>Year-round</small></h3>
+          <div class="items">
+            <article class="item">
+              <img src="assets/soup-garden-vegetable.jpeg" alt="Garden vegetable and herb soup with carrots, zucchini, celery and dill" loading="lazy" width="1024" height="1024">
+              <div class="item-body">
+                <div class="item-top"><h4>Garden Vegetable &amp; Herb</h4><span class="tag pareve">Pareve</span></div>
+                <p>Light, clear, the get-well soup.</p>
+              </div>
+            </article>
+            <article class="item">
+              <img src="assets/soup-french-onion.jpeg" alt="Baked French onion soup in a brown crock, topped with melted Gruyère and thyme, with a slice of sourdough" loading="lazy" width="1024" height="1024">
+              <div class="item-body">
+                <div class="item-top"><h4>Baked French Onion</h4><span class="tag dairy">Dairy</span></div>
+                <p>Gruyère crust.</p>
+              </div>
+            </article>
+            <article class="item">
+              <img src="assets/soup-split-pea.jpeg" alt="Split pea soup topped with crispy shallots, parsley and a swirl of smoked paprika" loading="lazy" width="1024" height="1024">
+              <div class="item-body">
+                <div class="item-top"><h4>Split Pea</h4><span class="tag pareve">Pareve</span></div>
+                <p>Smoked paprika, crispy shallots. Hearty and classic.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="menu-group fall" style="margin-top:44px">
+          <h3>Seasonal <small>Fall</small></h3>
+          <div class="items">
+            <article class="item">
+              <img src="assets/soup-spicy-pumpkin.jpeg" alt="Spicy pumpkin soup with a cream swirl, pumpkin seeds and chili flakes" loading="lazy" width="1024" height="1024">
+              <div class="item-body">
+                <div class="item-top"><h4>Spicy Pumpkin</h4><span class="tag dairy">Dairy</span></div>
+                <p>Chai spice, maple cream, candied pecans.</p>
+              </div>
+            </article>
+            <article class="item">
+              <img src="assets/soup-wild-mushroom.jpeg" alt="Creamy wild mushroom soup with mushrooms, thyme and an oil drizzle" loading="lazy" width="1024" height="1024">
+              <div class="item-body">
+                <div class="item-top"><h4>Wild Mushroom &amp; Truffle</h4><span class="tag dairy">Dairy</span></div>
+                <p>Shaved parmesan.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <p class="menu-note">Kosher · Dairy &amp; pareve labeled on every item.</p>
+      </div>
+    </section>
+
+    <!-- Get Well Bundle -->
+    <section id="get-well">
+      <div class="wrap gw">
+        <img src="assets/get-well-bundle.jpg" alt="A bowl of clear vegetable soup, sourdough and a small card tied with twine" loading="lazy" width="1536" height="1024">
+        <div>
+          <p class="eyebrow">Signature bundle</p>
+          <h2>The Get Well Bundle</h2>
+          <p style="margin-top:14px">Send warmth to someone who needs it.</p>
+          <ul>
+            <li>A bowl of soup</li>
+            <li>Sourdough bread</li>
+            <li>A card</li>
+          </ul>
+          <a class="btn" href="#notify">Get notified</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notify -->
+    <section id="notify" style="padding-top:0">
+      <div class="wrap">
+        <div class="notify">
+          <p class="eyebrow" style="color:#C6D8B2">Coming soon to Monsey</p>
+          <h2>Be the first to know when we open.</h2>
+          <p>Leave your email and we&rsquo;ll let you know the day the doors (and the soup pots) open.</p>
+          <form id="notify-form" novalidate>
+            <label for="email" class="sr-only" style="position:absolute;left:-999px">Email address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            <button class="btn" type="submit">Get notified</button>
+          </form>
+          <p class="msg" id="msg" role="status" aria-live="polite"></p>
+          <p class="fine">We&rsquo;ll only use your email to share our opening news.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap row">
+      <a class="brand" href="#top">
+        <img src="assets/logo-badge.png" alt="" width="40" height="40">
+        Bowl &amp; Hearth
+      </a>
+      <p style="margin:0">Kosher · Dairy &amp; pareve · Monsey, NY</p>
+      <button class="theme-toggle" id="theme" type="button" aria-label="Toggle light and dark mode">Dark mode</button>
+    </div>
+  </footer>
+
+  <script>
+    // Notify form: front-end only. Connect the action to your email list
+    // (e.g. Mailchimp, Formspree) to actually store signups.
+    (function () {
+      var form = document.getElementById('notify-form');
+      var input = document.getElementById('email');
+      var msg = document.getElementById('msg');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var ok = input.checkValidity() && input.value.trim() !== '';
+        msg.textContent = ok ? 'Thank you! We’ll be in touch soon.' : 'Please enter a valid email address.';
+        msg.style.color = ok ? '#C6D8B2' : '#F2B8A0';
+        if (ok) form.reset();
+      });
+
+      // Theme toggle (remembers choice per browser; falls back gracefully)
+      var root = document.documentElement;
+      var btn = document.getElementById('theme');
+      function currentDark() {
+        var set = root.getAttribute('data-theme');
+        if (set) return set === 'dark';
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      function label() { btn.textContent = currentDark() ? 'Light mode' : 'Dark mode'; }
+      try {
+        var saved = localStorage.getItem('bh-theme');
+        if (saved) root.setAttribute('data-theme', saved);
+      } catch (err) {}
+      label();
+      btn.addEventListener('click', function () {
+        var next = currentDark() ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('bh-theme', next); } catch (err) {}
+        label();
+      });
+    })();
+  </script>
+</body>
+</html>
